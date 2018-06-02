@@ -1,65 +1,46 @@
 import React, { Component } from 'react'
-import Number from './componenets/Number'
+import Clock from './componenets/Clock'
+import NoSleep from 'nosleep.js'
 import './App.scss'
 
 class App extends Component {
   constructor () {
     super()
-    this.state = {
-      date: new Date()
+
+    this.noSleep = new NoSleep();
+  }
+
+
+
+  toggleFullScreen = () => {
+    var doc = document;
+    var docEl = this.refs.app;
+
+    var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+    var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+    if(this.isFullScreen()) {
+      this.noSleep.enable();
+      requestFullScreen.call(docEl);
+    }
+    else {
+      this.noSleep.disable();
+      cancelFullScreen.call(doc);
     }
   }
 
-  componentDidMount () {
-    setInterval(() => this.setState({date: new Date()}), 1000)
+  isFullScreen = () => {
+    return (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement)
   }
 
-  mask = (mask,value) => {
-    let str = Math.pow(10,mask.length) + value + ''
-    str = str.split('')
-    str.shift()
-
-    return str
-  }
-  
   render () {
-    let {date} = this.state
-    let year = this.mask('xxxx',date.getFullYear())
-    let month = this.mask('xx',date.getMonth() + 1)
-    let day = this.mask('xx',date.getDate())
-    let hour = this.mask('xx',date.getHours())
-    let min = this.mask('xx',date.getMinutes())
-    let sec = this.mask('xx',date.getSeconds())
-    return (
-      <div className='App'>
-        <div className='clock'>
-          <div className={'date'}>
-            <Number number={year[0]} />
-            <Number number={year[1]} />
-            <Number number={year[2]} />
-            <Number number={year[3]} />
-            <span className={'delimiter'}>{'-'}</span>
-            <Number number={month[0]} />
-            <Number number={month[1]} />
-            <span className={'delimiter'}>{'-'}</span>
-            <Number number={day[0]} />
-            <Number number={day[1]} />
-          </div>
-          <br/>
-          <div className={'time'}>
-            <Number number={hour[0]} />
-            <Number number={hour[1]} />
-            <span className={'delimiter'}>{':'}</span>
-            <Number number={min[0]} />
-            <Number number={min[1]} />
-            <span className={'delimiter'}>{':'}</span>
-            <Number number={sec[0]} />
-            <Number number={sec[1]} />
-          </div>
+
+      return (
+        <div className='App' ref='app' id='app'>
+          <Clock onClick={this.toggleFullScreen} />
         </div>
-      </div>
-    )
-  }
+      )
+    }
 }
 
 export default App

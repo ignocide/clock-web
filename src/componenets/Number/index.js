@@ -31,6 +31,10 @@ class Number extends Component {
     }
   }
 
+  componentDidUpdate () {
+    return null
+  }
+
   endAnimation = () => {
     this.setState({
       run: false
