@@ -1,0 +1,150 @@
+.App {
+  text-align: center;
+  line-height: 100%;
+  font-size: 30px;
+}
+
+.clock{
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  transform: translate(-50%,-50%);
+  .delimiter{
+    height: 1em;
+    vertical-align: top;
+  }
+  .date{
+    font-size: 0.8em;
+    line-height: 0.8em;
+  }
+  .time{
+    font-size: 1.3em;
+    line-height: 1.3em;
+  }
+}
+
+.number{
+  position: relative;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+
+  .before-top{
+
+    position: absolute;
+    height: 0.5em;
+    width: 1em;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    background-color: black;
+    .number-mask{
+      position: relative;
+      height: 1em;
+      width: 1em;
+      left: 0;
+      top: 0;
+    }
+    -webkit-transform-origin: 0 100%;
+    -moz-transform-origin: 0 100%;
+    -o-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+  }
+  .before-bottom{
+    // visibility: hidden;
+
+    position: absolute;
+    height: 0.5em;
+    width: 1em;
+    left: 0;
+    top: 50%;
+    overflow: hidden;
+    background-color: black;
+    .number-mask{
+      position: relative;
+      height: 1em;
+      width: 1em;
+      left: 0;
+      top: -0.5em;
+    }
+  }
+  .after-top{
+    // visibility: hidden;
+
+    position: absolute;
+    height: 0.5em;
+    width: 1em;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    background-color: black;
+    .number-mask{
+      position: relative;
+      height: 1em;
+      width: 1em;
+      left: 0;
+      top: 0;
+    }
+  }
+  .after-bottom{
+    // visibility: hidden;
+
+    position: absolute;
+    height: 0.5em;
+    width: 1em;
+    left: 0;
+    top: 50%;
+    overflow: hidden;
+    background-color: black;
+
+    .number-mask{
+      position: relative;
+      height: 1em;
+      width: 1em;
+      left: 0;
+      top: -0.5em;
+    }
+    // transform: rotateX(180deg);
+    -webkit-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    transform-origin: 0 0;
+  }
+
+}
+
+
+#fold {
+  animation: anim 0.8s linear 0s 1 alternate;
+  // transform-origin: 50% 100%;
+
+}
+@keyframes anim {
+  from {
+    transform: rotateX(0);
+    z-index: 1;
+  }
+  to {
+    transform: rotateX(-180deg);
+    z-index: 0;
+  }
+}
+
+
+
+#fold-inv {
+  animation: anim-inv 0.8s linear 0s 1 alternate;
+  // transform-origin: 50% 100%;
+
+}
+@keyframes anim-inv {
+  from {
+    transform: rotateX(-180deg);
+    z-index: 0;
+  }
+  to {
+    transform: rotateX(0);
+    z-index: 1;
+  }
+}
